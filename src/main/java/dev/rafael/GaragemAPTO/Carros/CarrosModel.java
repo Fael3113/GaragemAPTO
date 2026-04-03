@@ -13,7 +13,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@ToString
+@ToString (exclude = "pessoa")
 public class CarrosModel {
 
 	@Id

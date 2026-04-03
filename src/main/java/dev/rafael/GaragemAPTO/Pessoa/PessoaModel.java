@@ -28,8 +28,8 @@ public class PessoaModel {
 	@Column(unique = true)
 	private String email;
 
-	@OneToOne
-	@JsonIgnore
+	@OneToOne (cascade = CascadeType.ALL)
 	@JoinColumn(name = "carro_id")
+	@JsonIgnore
 	private CarrosModel carro;
 }
