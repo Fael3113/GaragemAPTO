@@ -17,11 +17,6 @@ public class CarrosService {
 		this.carrosMapper = carrosMapper;
 	}
 
-	public CarrosDTO criarCarrro(CarrosDTO carrosDTO) {
-		CarrosModel carrosModel = carrosMapper.map(carrosDTO);
-		return carrosMapper.map(carrosRepository.save(carrosModel));
-	}
-
 	public List<CarrosDTO> listarCarros() {
 		List<CarrosModel> carrosModel = carrosRepository.findAll();
 		return carrosModel.stream()

@@ -20,23 +20,6 @@ public class CarrosController {
 		this.carrosService = carrosService;
 	}
 
-	@PostMapping("/criar")
-	@Operation(summary = "Cria novo carro", description = "Essa rota permite a criação de novos carros" +
-			" e insere no banco de dados")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "201", description = "Carro criado com sucesso"),
-			@ApiResponse(responseCode = "400", description = "Erro na criação do carro")
-	})
-	public ResponseEntity<?> criarNinja(
-			@Parameter(description = "Usuário fornece no corpo da requisição os dados para criação, " +
-					" é preciso que todos os parametros sejam fornecidos, o que não for fornecido será nulificado")
-			@RequestBody CarrosDTO carro) {
-		CarrosDTO carrosDTO = carrosService.criarCarrro(carro);
-
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(carrosDTO);
-	}
-
 	@GetMapping("/listar")
 	@Operation(summary = "Listar os carros", description = "Essa rota permite a listagem de todos os carros" +
 			" do banco de dados")
