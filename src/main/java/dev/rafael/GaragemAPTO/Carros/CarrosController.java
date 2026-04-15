@@ -1,9 +1,6 @@
 package dev.rafael.GaragemAPTO.Carros;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import dev.rafael.GaragemAPTO.Docs.CarrosControllerDoc;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/carros")
-public class CarrosController {
+public class CarrosController implements CarrosControllerDoc {
 
 	private final CarrosService carrosService;
 
@@ -21,13 +18,7 @@ public class CarrosController {
 	}
 
 	@GetMapping("/listar")
-	@Operation(summary = "Listar os carros", description = "Essa rota permite a listagem de todos os carros" +
-			" do banco de dados")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Carros encontrados com sucesso"),
-			@ApiResponse(responseCode = "204", description = "Não há carros na lista")
-	})
-	public ResponseEntity<?> listarNinjas() {
+	public ResponseEntity<Object> listarCarros() {
 		List<CarrosDTO> carrosDTO = carrosService.listarCarros();
 
 		if (carrosDTO.isEmpty()) {
@@ -38,15 +29,7 @@ public class CarrosController {
 	}
 
 	@GetMapping("/listar/{id}")
-	@Operation(summary = "Listar o carro por id", description = "Essa rota permite encontrar carros especificos via ID" +
-			" do banco de dados")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Carro encontrado com sucesso"),
-			@ApiResponse(responseCode = "404", description = "Carro não encontrado")
-	})
-	public ResponseEntity<?> listarNinjaPorId(
-			@Parameter(description = "Usuário fornece o id no caminho da requisição")
-			@PathVariable Long id) {
+	public ResponseEntity<Object> listarCarroPorId(@PathVariable Long id) {
 		CarrosDTO carrosDTO = carrosService.listarCarroPorId(id);
 
 		if (carrosDTO == null) {
@@ -58,18 +41,7 @@ public class CarrosController {
 	}
 
 	@PutMapping("/alterar/{id}")
-	@Operation(summary = "Alterar o carro por id", description = "Essa rota permite alterar carros especificos via ID" +
-			" do banco de dados")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Carro alterado com sucesso"),
-			@ApiResponse(responseCode = "404", description = "Carro não encontrado")
-	})
-	public ResponseEntity<?> alterarNinjaPorId(
-			@Parameter(description = "Usuário fornece o id no caminho da requisição")
-			@PathVariable Long id,
-			@Parameter(description = "Usuário fornece no corpo da requisição os dados atualizados, no caso de ser um 'PUT'" +
-					" é preciso que todos os parametros sejam fornecidos, o que não for fornecido será nulificado")
-			@RequestBody CarrosDTO carroAtualizado) {
+	public ResponseEntity<Object> alterarCarroPorId(@PathVariable Long id, @RequestBody CarrosDTO carroAtualizado) {
 		CarrosDTO carrosDTO = carrosService.atualizarCarroPorId(id, carroAtualizado);
 
 		if (carrosDTO == null) {
@@ -81,15 +53,7 @@ public class CarrosController {
 	}
 
 	@DeleteMapping("/deletar/{id}")
-	@Operation(summary = "Deletar o Carro por id", description = "Essa rota permite deletar carros especificos via ID" +
-			" do banco de dados")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Carro deletado com sucesso"),
-			@ApiResponse(responseCode = "404", description = "Carro não encontrado")
-	})
-	public ResponseEntity<?> deletarNinjaPorId(
-			@Parameter(description = "Usuário fornece o id no caminho da requisição")
-			@PathVariable Long id) {
+	public ResponseEntity<Object> deletarCarroPorId(@PathVariable Long id) {
 		CarrosDTO carrosDTO = carrosService.listarCarroPorId(id);
 
 		if (carrosDTO == null) {
